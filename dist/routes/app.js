@@ -17,7 +17,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST'); // If needed to add
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Origin,Accept,Authorization,x-access-token'); // If needed	
-    // res.setHeader('Access-Control-Allow-Credentials', "true"); // If needed
+    res.setHeader('Access-Control-Allow-Credentials', "true"); // If needed
     next();
 });
 app.get('/', (request, response) => {

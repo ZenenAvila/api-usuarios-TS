@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.pool = void 0;
-const Pool = require('pg').Pool;
-const pool = new Pool({
+var Pool = require('pg').Pool;
+var pool = new Pool({
     user: process.env.USER_DB || 'ilhzxelc',
     host: process.env.HOST_DB || 'kashin.db.elephantsql.com',
     database: process.env.DATABASE_NAME || 'ilhzxelc',

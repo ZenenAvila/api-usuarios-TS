@@ -63,4 +63,4 @@ const actualizarDao = async(id:string,nombre:string,apellidos:string,password:st
     }
 }
 
-module.exports={mostrarTodosDao,mostrarDao,insertarDao,eliminarDao,actualizarDao};
+// module.exports={mostrarTodosDao,mostrarDao,insertarDao,eliminarDao,actualizarDao};

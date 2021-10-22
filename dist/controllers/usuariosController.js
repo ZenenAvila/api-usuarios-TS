@@ -8,90 +8,148 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const usuariosDao = require(`../dao/usuariosDao`);
-const numeros = new RegExp('^[0-9]+$');
-const letras = new RegExp('^[A-ZÁÉÍÓÚÑ ]+$', 'i');
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var usuariosDao = require("../dao/usuariosDao");
+var numeros = new RegExp('^[0-9]+$');
+var letras = new RegExp('^[A-ZÁÉÍÓÚÑ ]+$', 'i');
 //consultar usuarios
-const mostrarTodosCntrlr = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const usuarios = yield usuariosDao.mostrarTodosDao();
-        return usuarios;
-    }
-    catch (error) {
-        console.log(`error mostrarTodos(controller): ${error}`);
-    }
-});
-const mostrarCntrlr = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const usuarios = yield usuariosDao.mostrarDao();
-        return usuarios;
-    }
-    catch (error) {
-        console.log(`error mostrar(controller): ${error}`);
-    }
-});
+var mostrarTodosCntrlr = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var usuarios, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, usuariosDao.mostrarTodosDao()];
+            case 1:
+                usuarios = _a.sent();
+                return [2 /*return*/, usuarios];
+            case 2:
+                error_1 = _a.sent();
+                console.log("error mostrarTodos(controller): " + error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+var mostrarCntrlr = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var usuarios, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, usuariosDao.mostrarDao()];
+            case 1:
+                usuarios = _a.sent();
+                return [2 /*return*/, usuarios];
+            case 2:
+                error_2 = _a.sent();
+                console.log("error mostrar(controller): " + error_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 //insertar usuariosn
-const insertarCntrlr = (nombre, apellidos, password) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        if (nombre != "" && apellidos != "" && password != "") {
-            if (letras.test(nombre) && letras.test(apellidos)) {
-                yield usuariosDao.insertarDao(nombre, apellidos, password);
-                return ({ "respuesta": "insertado Correctamente" });
-            }
-            else {
-                return ({ "respuesta": "El nombre y apellidos deben contener solo letras " });
-            }
+var insertarCntrlr = function (nombre, apellidos, password) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 6, , 7]);
+                if (!(nombre != "" && apellidos != "" && password != "")) return [3 /*break*/, 4];
+                if (!(letras.test(nombre) && letras.test(apellidos))) return [3 /*break*/, 2];
+                return [4 /*yield*/, usuariosDao.insertarDao(nombre, apellidos, password)];
+            case 1:
+                _a.sent();
+                return [2 /*return*/, ({ "respuesta": "insertado Correctamente" })];
+            case 2: return [2 /*return*/, ({ "respuesta": "El nombre y apellidos deben contener solo letras " })];
+            case 3: return [3 /*break*/, 5];
+            case 4: return [2 /*return*/, ({ "respuesta": "Todos los campos son obligatorios " })];
+            case 5: return [3 /*break*/, 7];
+            case 6:
+                error_3 = _a.sent();
+                console.log("error insertar(controller): " + error_3);
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/];
         }
-        else {
-            return ({ "respuesta": "Todos los campos son obligatorios " });
+    });
+}); };
+var eliminarCntrlr = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 6, , 7]);
+                if (!(id != "")) return [3 /*break*/, 4];
+                if (!numeros.test(id)) return [3 /*break*/, 2];
+                return [4 /*yield*/, usuariosDao.eliminarDao(id)];
+            case 1:
+                _a.sent();
+                return [2 /*return*/, ({ "respuesta": "eliminado Correctamente" })];
+            case 2: return [2 /*return*/, ({ "respuesta": "El id solo debe contener numeros " })];
+            case 3: return [3 /*break*/, 5];
+            case 4: return [2 /*return*/, ({ "respuesta": "El id es obligatorio " })];
+            case 5: return [3 /*break*/, 7];
+            case 6:
+                error_4 = _a.sent();
+                console.log("error eliminar(controller): " + error_4);
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/];
         }
-    }
-    catch (error) {
-        console.log(`error insertar(controller): ${error}`);
-    }
-});
-const eliminarCntrlr = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        if (id != "") {
-            if (numeros.test(id)) {
-                yield usuariosDao.eliminarDao(id);
-                return ({ "respuesta": "eliminado Correctamente" });
-            }
-            else {
-                return ({ "respuesta": "El id solo debe contener numeros " });
-            }
+    });
+}); };
+var actualizarCntrlr = function (id, nombre, apellidos, password) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 8, , 9]);
+                if (!(id != "" && nombre != "" && apellidos != "" && password != "")) return [3 /*break*/, 6];
+                if (!numeros.test(id)) return [3 /*break*/, 4];
+                if (!(letras.test(nombre) &&
+                    letras.test(apellidos))) return [3 /*break*/, 2];
+                return [4 /*yield*/, usuariosDao.actualizarDao(id, nombre, apellidos, password)];
+            case 1:
+                _a.sent();
+                return [2 /*return*/, ({ "respuesta": "actualizado Correctamente" })];
+            case 2: return [2 /*return*/, ({ "respuesta": "El nombre y apellidos deben contener solo letras " })];
+            case 3: return [3 /*break*/, 5];
+            case 4: return [2 /*return*/, ({ "respuesta": "El id solo debe contener numeros " })];
+            case 5: return [3 /*break*/, 7];
+            case 6: return [2 /*return*/, ({ "respuesta": "Todos los campos son obligatorios " })];
+            case 7: return [3 /*break*/, 9];
+            case 8:
+                error_5 = _a.sent();
+                console.log("error actualizar(controller): " + error_5);
+                return [3 /*break*/, 9];
+            case 9: return [2 /*return*/];
         }
-        else {
-            return ({ "respuesta": "El id es obligatorio " });
-        }
-    }
-    catch (error) {
-        console.log(`error eliminar(controller): ${error}`);
-    }
-});
-const actualizarCntrlr = (id, nombre, apellidos, password) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        if (id != "" && nombre != "" && apellidos != "" && password != "") {
-            if (numeros.test(id)) {
-                if (letras.test(nombre) &&
-                    letras.test(apellidos)) {
-                    yield usuariosDao.actualizarDao(id, nombre, apellidos, password);
-                    return ({ "respuesta": "actualizado Correctamente" });
-                }
-                else {
-                    return ({ "respuesta": "El nombre y apellidos deben contener solo letras " });
-                }
-            }
-            else {
-                return ({ "respuesta": "El id solo debe contener numeros " });
-            }
-        }
-        else {
-            return ({ "respuesta": "Todos los campos son obligatorios " });
-        }
-    }
-    catch (error) {
-        console.log(`error actualizar(controller): ${error}`);
-    }
-});
-module.exports = { mostrarTodosCntrlr, mostrarCntrlr, insertarCntrlr, actualizarCntrlr, eliminarCntrlr };
+    });
+}); };
+module.exports = { mostrarTodosCntrlr: mostrarTodosCntrlr, mostrarCntrlr: mostrarCntrlr, insertarCntrlr: insertarCntrlr, actualizarCntrlr: actualizarCntrlr, eliminarCntrlr: eliminarCntrlr };

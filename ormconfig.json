@@ -1,0 +1,7 @@
+{
+    "type": "postgres",
+    "url": "postgres://ilhzxelc:xKyzElRFw7DHX8WZelDW_mVq0zm2i073@kashin.db.elephantsql.com/ilhzxelc", 
+    "synchronize": false,
+    "logging": true,
+    "entities": ["dist/dao/**/*.js"]
+ }

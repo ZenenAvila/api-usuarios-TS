@@ -2,6 +2,12 @@ import express from 'express';
 const app=express();
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import morgan from 'morgan';
+// const cors=require('cors');
+// app.use(cors());
+app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
 
 
 const port = process.env.PORT||5000;

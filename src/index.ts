@@ -1,14 +1,9 @@
+import 'reflect-metadata';
+import {createConnection} from 'typeorm';
+import usuariosRoutes from './routes/usuarios.routes';
 import {app} from "./routes/app";
-const usuariosRoutes=require('./routes/usuariosRoutes');
+createConnection();
 
+
+//routes
 app.use('/usuarios',usuariosRoutes); 
-
-// import express from 'express';
-
-// const app    = express();
-
-// app.get('/',(req,res)=>{
-//     res.send('Hello');
-// });
-
-// app.listen(5000,()=> console.log('api corriendo'));

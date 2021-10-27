@@ -135,7 +135,7 @@ export const eliminar = async (req:Request,res:Response): Promise<Response> =>{
                 .createQueryBuilder()
                 .update(Usuarios)
                 .set({ eliminado: true })
-                .where("id = :id", { id: req.body.id })
+                .where("id = :id", { id: req.params.id })
                 .execute();
                 return res.json(results);
             } else{

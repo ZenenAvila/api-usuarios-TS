@@ -57,7 +57,7 @@ var mostrartodos = function (req, res) { return __awaiter(void 0, void 0, void 0
             case 2:
                 error_1 = _a.sent();
                 console.log("error mostrarTodos(controller):", error_1);
-                return [2 /*return*/, res.json("error")];
+                return [2 /*return*/, res.json("error mostrarTodos(controller): " + error_1)];
             case 3: return [2 /*return*/];
         }
     });
@@ -81,7 +81,7 @@ var mostrar = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
             case 2:
                 error_2 = _a.sent();
                 console.log("error mostrar(controller):", error_2);
-                return [2 /*return*/, res.json("error")];
+                return [2 /*return*/, res.json("error mostrar(controller): " + error_2)];
             case 3: return [2 /*return*/];
         }
     });
@@ -111,14 +111,14 @@ var mostrarusuario = function (req, res) { return __awaiter(void 0, void 0, void
             case 6:
                 error_3 = _a.sent();
                 console.log("error mostrarusuario(controller):", error_3);
-                return [2 /*return*/, res.json("error")];
+                return [2 /*return*/, res.json("error mostrarusuario(controller): " + error_3)];
             case 7: return [2 /*return*/];
         }
     });
 }); };
 exports.mostrarusuario = mostrarusuario;
 var insertar = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var results, error_4;
+    var password, results, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -126,6 +126,7 @@ var insertar = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                 if (!(req.body.nombre != "" && req.body.apellidos != "" &&
                     req.body.password != "")) return [3 /*break*/, 4];
                 if (!(letras.test(req.body.nombre) && letras.test(req.body.apellidos))) return [3 /*break*/, 2];
+                password = btoa(req.body.password);
                 return [4 /*yield*/, (0, typeorm_1.getRepository)(usuarios_Dao_1.Usuarios)
                         .createQueryBuilder()
                         .insert()
@@ -133,7 +134,7 @@ var insertar = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                         .values([
                         { nombre: " " + String(req.body.nombre) + " ",
                             apellidos: "" + req.body.apellidos,
-                            password: "" + btoa(req.body.password)
+                            password: "" + password
                         }
                     ])
                         .execute()];
@@ -147,7 +148,7 @@ var insertar = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
             case 6:
                 error_4 = _a.sent();
                 console.log("error insertar(controller):", error_4);
-                return [2 /*return*/, res.json("error")];
+                return [2 /*return*/, res.json("error insertar(controller): " + error_4)];
             case 7: return [2 /*return*/];
         }
     });
@@ -190,7 +191,7 @@ var actualizar = function (req, res) { return __awaiter(void 0, void 0, void 0, 
             case 11:
                 error_5 = _a.sent();
                 console.log("error actualizar(controller): " + error_5);
-                return [2 /*return*/, res.json("error")];
+                return [2 /*return*/, res.json("error actualizar(controller): " + error_5)];
             case 12: return [2 /*return*/];
         }
     });
@@ -220,7 +221,7 @@ var eliminar = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
             case 6:
                 error_6 = _a.sent();
                 console.log("error eliminar(controller): " + error_6);
-                return [2 /*return*/, res.json("error")];
+                return [2 /*return*/, res.json("error eliminar(controller): " + error_6)];
             case 7: return [2 /*return*/];
         }
     });

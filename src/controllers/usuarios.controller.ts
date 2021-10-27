@@ -65,6 +65,7 @@ export const insertar = async (req:Request,res:Response):  Promise<Response> =>{
         if(req.body.nombre!="" && req.body.apellidos!="" && 
         req.body.password!=""){
             if(letras.test(req.body.nombre) && letras.test(req.body.apellidos)){
+                const password=btoa(req.body.password);
                 const results= await getRepository(Usuarios)
                 .createQueryBuilder()
                 .insert()
@@ -72,7 +73,7 @@ export const insertar = async (req:Request,res:Response):  Promise<Response> =>{
                 .values([
                     { nombre: ` ${String(req.body.nombre)} `, 
                       apellidos: `${req.body.apellidos}`,
-                      password: `${btoa(req.body.password)}` 
+                      password: `${password}` 
                     }
                 ])
                 .execute();

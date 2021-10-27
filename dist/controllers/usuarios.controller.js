@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.eliminar = exports.UpdateUser = exports.insertar = exports.mostrarusuario = exports.mostrar = exports.mostrartodos = void 0;
+exports.eliminar = exports.actualizar = exports.insertar = exports.mostrarusuario = exports.mostrar = exports.mostrartodos = void 0;
 var typeorm_1 = require("typeorm");
 var usuarios_Dao_1 = require("../dao/usuarios.Dao");
 var numeros = new RegExp('^[0-9]+$');
@@ -123,17 +123,17 @@ var insertar = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 6, , 7]);
-                if (!(req.params.nombre != "" && req.params.apellidos != "" &&
-                    req.params.password != "")) return [3 /*break*/, 4];
-                if (!(letras.test(req.params.nombre) && letras.test(req.params.apellidos))) return [3 /*break*/, 2];
+                if (!(req.body.nombre != "" && req.body.apellidos != "" &&
+                    req.body.password != "")) return [3 /*break*/, 4];
+                if (!(letras.test(req.body.nombre) && letras.test(req.body.apellidos))) return [3 /*break*/, 2];
                 return [4 /*yield*/, (0, typeorm_1.getRepository)(usuarios_Dao_1.Usuarios)
                         .createQueryBuilder()
                         .insert()
                         .into(usuarios_Dao_1.Usuarios)
                         .values([
-                        { nombre: " " + String(req.params.nombre) + " ",
-                            apellidos: "" + req.params.apellidos,
-                            password: "" + btoa(req.params.password)
+                        { nombre: " " + String(req.body.nombre) + " ",
+                            apellidos: "" + req.body.apellidos,
+                            password: "" + btoa(req.body.password)
                         }
                     ])
                         .execute()];
@@ -143,7 +143,7 @@ var insertar = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
             case 2: return [2 /*return*/, res.json({ "respuesta": "El nombre y apellidos deben contener solo letras " })];
             case 3: return [3 /*break*/, 5];
             case 4: return [2 /*return*/, res.json({ "respuesta": "Todos los campos son obligatorios " })];
-            case 5: return [2 /*return*/, res.json({ "respuesta": "Todos los campos son obligatorios " })];
+            case 5: return [3 /*break*/, 7];
             case 6:
                 error_4 = _a.sent();
                 console.log("error insertar(controller):", error_4);
@@ -153,26 +153,51 @@ var insertar = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
     });
 }); };
 exports.insertar = insertar;
-var UpdateUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, results;
+var actualizar = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, results, error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, typeorm_1.getRepository)(usuarios_Dao_1.Usuarios).findOne(req.params.id)];
+            case 0:
+                _a.trys.push([0, 11, , 12]);
+                return [4 /*yield*/, (0, typeorm_1.getRepository)(usuarios_Dao_1.Usuarios).findOne(req.params.id)];
             case 1:
                 user = _a.sent();
-                if (!user) return [3 /*break*/, 3];
-                (0, typeorm_1.getRepository)(usuarios_Dao_1.Usuarios).merge(user, req.body);
-                return [4 /*yield*/, (0, typeorm_1.getRepository)(usuarios_Dao_1.Usuarios).save(user)];
+                if (!user) return [3 /*break*/, 9];
+                if (!(req.params.id != "" && req.body.nombre != "" &&
+                    req.body.apellidos != "" && req.body.password != "")) return [3 /*break*/, 7];
+                if (!numeros.test(req.params.id)) return [3 /*break*/, 5];
+                if (!(letras.test(req.body.nombre) &&
+                    letras.test(req.body.apellidos))) return [3 /*break*/, 3];
+                return [4 /*yield*/, (0, typeorm_1.getRepository)(usuarios_Dao_1.Usuarios)
+                        .createQueryBuilder()
+                        .update(usuarios_Dao_1.Usuarios)
+                        .set({ nombre: req.body.nombre,
+                        apellidos: req.body.apellidos,
+                        password: req.body.password })
+                        .where("id = :id", { id: req.params.id })
+                        .execute()];
             case 2:
                 results = _a.sent();
                 return [2 /*return*/, res.json(results)];
-            case 3: return [2 /*return*/, res.status(404).json({ msg: 'Not User Found XD ' })];
+            case 3: return [2 /*return*/, res.json({ "respuesta": "El nombre y apellidos deben contener solo letras " })];
+            case 4: return [3 /*break*/, 6];
+            case 5: return [2 /*return*/, res.json({ "respuesta": "El id solo debe contener numeros " })];
+            case 6: return [3 /*break*/, 8];
+            case 7: return [2 /*return*/, res.json({ "respuesta": "Todos los campos son obligatorios " })];
+            case 8: return [3 /*break*/, 10];
+            case 9: return [2 /*return*/, res.status(404).json({ msg: 'Not User Found XD ' })];
+            case 10: return [3 /*break*/, 12];
+            case 11:
+                error_5 = _a.sent();
+                console.log("error actualizar(controller): " + error_5);
+                return [2 /*return*/, res.json("error")];
+            case 12: return [2 /*return*/];
         }
     });
 }); };
-exports.UpdateUser = UpdateUser;
+exports.actualizar = actualizar;
 var eliminar = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var results, error_5;
+    var results, error_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -183,7 +208,7 @@ var eliminar = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                         .createQueryBuilder()
                         .update(usuarios_Dao_1.Usuarios)
                         .set({ eliminado: true })
-                        .where("id = :id", { id: req.params.id })
+                        .where("id = :id", { id: req.body.id })
                         .execute()];
             case 1:
                 results = _a.sent();
@@ -193,8 +218,8 @@ var eliminar = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
             case 4: return [2 /*return*/, res.json({ "respuesta": "El id es obligatorio " })];
             case 5: return [3 /*break*/, 7];
             case 6:
-                error_5 = _a.sent();
-                console.log("error eliminar(controller): " + error_5);
+                error_6 = _a.sent();
+                console.log("error eliminar(controller): " + error_6);
                 return [2 /*return*/, res.json("error")];
             case 7: return [2 /*return*/];
         }

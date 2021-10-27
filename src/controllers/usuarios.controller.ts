@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import { getRepository, } from "typeorm";
+import { getConnection, getRepository, } from "typeorm";
 import { Usuarios } from "../dao/usuarios.Dao";
 
 const numeros = new RegExp('^[0-9]+$');
@@ -62,17 +62,17 @@ export const mostrarusuario = async (req:Request,res:Response): Promise<Response
 
 export const insertar = async (req:Request,res:Response):  Promise<Response> =>{
     try {
-        if(req.params.nombre!="" && req.params.apellidos!="" && 
-        req.params.password!=""){
-            if(letras.test(req.params.nombre) && letras.test(req.params.apellidos)){
+        if(req.body.nombre!="" && req.body.apellidos!="" && 
+        req.body.password!=""){
+            if(letras.test(req.body.nombre) && letras.test(req.body.apellidos)){
                 const results= await getRepository(Usuarios)
                 .createQueryBuilder()
                 .insert()
                 .into(Usuarios)
                 .values([
-                    { nombre: ` ${String(req.params.nombre)} `, 
-                      apellidos: `${req.params.apellidos}`,
-                      password: `${btoa(req.params.password)}` 
+                    { nombre: ` ${String(req.body.nombre)} `, 
+                      apellidos: `${req.body.apellidos}`,
+                      password: `${btoa(req.body.password)}` 
                     }
                 ])
                 .execute();
@@ -82,26 +82,49 @@ export const insertar = async (req:Request,res:Response):  Promise<Response> =>{
             }
         }else{
             return res.json({"respuesta":"Todos los campos son obligatorios "});    
-        }
-            return res.json({"respuesta":"Todos los campos son obligatorios "});    
-
+        } 
     } catch (error) {
         console.log("error insertar(controller):",error);
         return res.json("error");    
     }
-
 };
 
 
-export const UpdateUser = async (req:Request,res:Response): Promise<Response> =>{
+export const actualizar = async (req:Request,res:Response): Promise<Response> =>{
+    try{
     const user = await getRepository(Usuarios).findOne(req.params.id);
     if(user){
-        getRepository(Usuarios).merge(user,req.body);
-        const results= await getRepository(Usuarios).save(user);
-        return res.json(results);
+        if(req.params.id!="" && req.body.nombre!="" && 
+        req.body.apellidos!="" && req.body.password!="" ){
+    if(numeros.test(req.params.id)){    
+    if(letras.test(req.body.nombre) && 
+    letras.test(req.body.apellidos)){
+        const results= await getRepository(Usuarios)
+        .createQueryBuilder()
+        .update(Usuarios)
+        .set({nombre:req.body.nombre,
+            apellidos:req.body.apellidos,
+            password:req.body.password})
+        .where("id = :id", { id: req.params.id })
+        .execute();
+        return res.json(results);}
+        else{
+            return res.json({"respuesta":"El nombre y apellidos deben contener solo letras "});
+        }
+        } else{
+            return res.json({"respuesta":"El id solo debe contener numeros "});
+        }}else{
+            return res.json({"respuesta":"Todos los campos son obligatorios "});
+        }
     }else{
         return res.status(404).json({msg: 'Not User Found XD '});
     }
+}
+catch(error)
+{
+    console.log(`error actualizar(controller): ${error}`);
+    return res.json("error");        
+}
 };
 
 export const eliminar = async (req:Request,res:Response): Promise<Response> =>{
@@ -112,7 +135,7 @@ export const eliminar = async (req:Request,res:Response): Promise<Response> =>{
                 .createQueryBuilder()
                 .update(Usuarios)
                 .set({ eliminado: true })
-                .where("id = :id", { id: req.params.id })
+                .where("id = :id", { id: req.body.id })
                 .execute();
                 return res.json(results);
             } else{

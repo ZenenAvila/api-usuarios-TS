@@ -15,7 +15,7 @@ export const mostrartodos = async (req:Request,res:Response): Promise<Response> 
     }
     catch(error){
         console.log("error mostrarTodos(controller):",error);
-        return res.json("error");
+        return res.json(`error mostrarTodos(controller): ${error}`);
     }
 };
 
@@ -31,7 +31,7 @@ export const mostrar = async (req:Request,res:Response): Promise<Response> =>{
     }
     catch(error){
         console.log("error mostrar(controller):",error);
-        return res.json("error");
+        return res.json(`error mostrar(controller): ${error}`);
     }
 };
 
@@ -56,7 +56,7 @@ export const mostrarusuario = async (req:Request,res:Response): Promise<Response
     }
     catch(error){
         console.log("error mostrarusuario(controller):",error);
-        return res.json("error");
+        return res.json(`error mostrarusuario(controller): ${error}`);
     }
 };
 
@@ -85,7 +85,7 @@ export const insertar = async (req:Request,res:Response):  Promise<Response> =>{
         } 
     } catch (error) {
         console.log("error insertar(controller):",error);
-        return res.json("error");    
+        return res.json(`error insertar(controller): ${error}`);    
     }
 };
 
@@ -123,7 +123,7 @@ export const actualizar = async (req:Request,res:Response): Promise<Response> =>
 catch(error)
 {
     console.log(`error actualizar(controller): ${error}`);
-    return res.json("error");        
+    return res.json(`error actualizar(controller): ${error}`);        
 }
 };
 
@@ -148,7 +148,7 @@ export const eliminar = async (req:Request,res:Response): Promise<Response> =>{
     catch(error)
     {
         console.log(`error eliminar(controller): ${error}`);
-        return res.json("error");    
+        return res.json(`error eliminar(controller): ${error}`);    
     }
 };
 
